@@ -43,6 +43,10 @@ export const numberFormatter = (
   return formatter.format(i);
 };
 
+export function isLocalhost() {
+  return window.location.hostname === "localhost";
+}
+
 export class AxiosRequest {
   constructor(route: string, options?: { token: string } | any) {
     this.route = route;
@@ -51,7 +55,9 @@ export class AxiosRequest {
   route = "";
   msg = "";
   instance = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: isLocalhost()
+      ? "http://localhost:8000/api"
+      : "https://finora-server.onrender.com/api",
     timeout: this.route.includes("dashboard") ? 8000 : 3000,
     // withCredentials: true,
     headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
