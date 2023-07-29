@@ -33,7 +33,7 @@ const SignUpModal = ({
     const response = await new AxiosRequest("/users/login").post(loginData);
     if (!response.error || response.status === 200) {
       redirectToDashBoard(response);
-      router.push("/portfolio");
+      window.location.href = "/portfolio";
     } else {
       setErrorMessage(response.error);
     }

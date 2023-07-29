@@ -23,7 +23,8 @@ const Portfolio = () => {
   const goals = useSelector((state: AppState) => state.Goals.goals);
 
   const portfolioBalance = useSelector(
-    (state: AppState) => state.portfolio.balance
+    (state: AppState) =>
+      state.portfolio.balance || { cash: 0, savings: 0, invested: 0 }
   );
 
   const totalBalance = Object.values(portfolioBalance || {}).reduce(

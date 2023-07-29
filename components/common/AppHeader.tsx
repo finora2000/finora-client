@@ -7,7 +7,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AppHeader = () => {
-  const balance = useSelector((state: AppState) => state.portfolio.balance);
+  const balance = useSelector(
+    (state: AppState) =>
+      state.portfolio.balance || { cash: 0, savings: 0, invested: 0 }
+  );
   const dispatch = useDispatch();
   const totalBalance = +balance.cash + +balance.savings + +balance.invested;
 
