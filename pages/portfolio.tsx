@@ -14,6 +14,7 @@ import {
   Overlay,
   Text,
 } from "@mantine/core";
+import Link from "next/link";
 import { useSelector } from "react-redux";
 
 const Portfolio = () => {
@@ -117,11 +118,25 @@ const Portfolio = () => {
             }}
           />
         </AspectRatio>
-        <Flex mt={"lg"} gap={"lg"} align={"start"}>
+        <Flex
+          mt={"lg"}
+          gap={"lg"}
+          align={"start"}
+          sx={{
+            "@media (max-width: 980px)": {
+              flexDirection: "column-reverse",
+            },
+          }}
+        >
           <Box
             p="lg"
             style={{ flex: "1 1", borderRadius: "10px" }}
             bg={"white"}
+            sx={{
+              "@media (max-width: 980px)": {
+                width: "100%",
+              },
+            }}
           >
             <Text fw="bold" mb="lg" fz="lg">
               Latest News
@@ -130,13 +145,9 @@ const Portfolio = () => {
               <>
                 <Divider my="md" orientation="horizontal" />
                 <Flex align={"center"} gap={"md"}>
-                  {/* <Image
-                    src="https://media.istockphoto.com/id/1369150014/vector/breaking-news-with-world-map-background-vector.jpg?s=612x612&w=0&k=20&c=9pR2-nDBhb7cOvvZU_VdgkMmPJXrBQ4rB1AkTXxRIKM="
-                    style={{ maxWidth: "150px" }}
-                  /> */}
                   <Box>
                     <Text fz="md" fw="bold">
-                      {n.title}
+                      <Link href={n.link}>{n.title}</Link>
                     </Text>
                     <Text fz={"sm"} my="2px">
                       {n.source}
@@ -149,7 +160,16 @@ const Portfolio = () => {
               </>
             ))}
           </Box>
-          <Flex gap="lg" direction={"column"} style={{ flex: "1 1" }}>
+          <Flex
+            sx={{
+              "@media (max-width: 980px)": {
+                width: "100%",
+              },
+            }}
+            gap="lg"
+            direction={"column"}
+            style={{ flex: "1 1" }}
+          >
             <Box
               style={{
                 flex: "1 1",

@@ -12,6 +12,7 @@ const LoadingScreen = () => {
   }, [activeDots]);
   return (
     <Center
+      bg="#f8f9fa"
       sx={{
         alignItems: "center",
         alignContent: "center",

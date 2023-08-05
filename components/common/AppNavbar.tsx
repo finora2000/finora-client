@@ -14,7 +14,16 @@ import { useRouter } from "next/router";
 const AppNavbar = () => {
   const router = useRouter();
   return (
-    <Navbar width={{ base: 300 }} height={"max"} p="xs">
+    <Navbar
+      height={"max"}
+      p="xs"
+      width={{ base: "80", md: "300" }}
+      // sx={{
+      //   "@media (max-width: 40em)": {
+      //     width: "12vh",
+      //   },
+      // }}
+    >
       <Flex direction={"column"} gap="md">
         {[
           { text: "Portfolio", link: "/portfolio" },
@@ -34,6 +43,7 @@ const AppNavbar = () => {
               }
               sx={{
                 height: "50px",
+
                 boxShadow: "2px 2px 5px rgba(0, 0, 0,0.15)",
                 color: router.pathname.includes(i.link) ? "#fff" : "",
                 "&:hover": {
@@ -41,9 +51,32 @@ const AppNavbar = () => {
                     ? "#3eab51"
                     : "",
                 },
+                "@media (max-width: 980px)": {
+                  // boxShadow: "0px 0px 0px rgba(0, 0, 0,0)",
+                  // backgroundColor: "white",
+                  // color: "green",
+                },
               }}
             >
-              {i.text}
+              <Text
+                sx={{
+                  "@media (max-width: 980px)": {
+                    display: "none",
+                  },
+                }}
+              >
+                {i.text}
+              </Text>
+              <Text
+                display={"none"}
+                sx={{
+                  "@media (max-width: 980px)": {
+                    display: "block",
+                  },
+                }}
+              >
+                {i.text[0]}
+              </Text>
             </Button>
           </Link>
         ))}

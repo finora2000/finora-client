@@ -75,6 +75,7 @@ const SignUpModal = ({
       <Modal
         opened={isOpen}
         centered
+        zIndex={999999}
         onClose={setIsOpen}
         title={
           isLogin ? (

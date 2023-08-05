@@ -17,7 +17,17 @@ const AppHeader = () => {
   const logout = () => dispatch(userAction.logout({}));
 
   return (
-    <Header height={60} p="xs">
+    <Header
+      height={60}
+      sx={{
+        width: "100%",
+        "@media (max-width: 40em)": {
+          padding: "none",
+          flex: "1 1",
+        },
+      }}
+      p="xs"
+    >
       <Flex
         justify={"space-between"}
         w="100%"

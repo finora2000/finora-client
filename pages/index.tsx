@@ -3,6 +3,7 @@ import {
   Avatar,
   BackgroundImage,
   Box,
+  Button,
   Center,
   Flex,
   Image,
@@ -10,10 +11,12 @@ import {
   Text,
   Transition,
 } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
 import DefaultHeader from "@/components/common/DefaultHeader";
 import SignUpModal from "@/components/signup/SignupModal";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function Home() {
   const router = useRouter();
@@ -21,11 +24,20 @@ export default function Home() {
   useEffect(() => {
     if (`${router.query?.status}` === "401") setshowNotification(true);
   }, [router]);
+  const autoplay = useRef(Autoplay({ delay: 2000 }));
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
-      <DefaultHeader />
+      <DefaultHeader openModal={openModal} setOpenModal={setOpenModal} />
       {showNotification && (
-        <Box pos="absolute" top={5} right={5} w="max-content">
+        <Box
+          pos="absolute"
+          sx={{ zIndex: 99999 }}
+          top={5}
+          right={5}
+          w="max-content"
+        >
           <Notification
             title="Unauthorized Access!"
             withBorder
@@ -37,46 +49,84 @@ export default function Home() {
           </Notification>
         </Box>
       )}
-      <BackgroundImage
-        src={"/istockphoto-1315105792-612x612.jpg"}
-        h={"100vh"}
-        w="100%"
-        sx={{ objectFit: "cover" }}
+      <Center
+        sx={{
+          justifyContent: "space-between",
+          height: "100vh",
+          padding: "0 10vh",
+          width: "100%",
+          "@media (max-width: 40em)": {
+            padding: "10vh 0vh 0vh 0vh",
+            flexDirection: "column",
+            justifyContent: "center",
+          },
+        }}
+        bg="#f8f9fa"
       >
-        <Center
+        <Flex
           sx={{
-            justifyContent: "space-between",
-            padding: "0px 10px",
-            height: "100%",
+            flexDirection: "column",
+            width: "50%",
+            "@media (max-width: 40em)": {
+              width: "90%",
+            },
+            wordWrap: "normal",
           }}
+          gap={"lg"}
         >
-          <Flex
+          <Text
+            fz="3.1em"
             sx={{
-              flexDirection: "column",
-              width: "310px",
-              wordWrap: "normal",
+              "@media (max-width: 40em)": {
+                fontSize: "1.8em",
+                width: "100%",
+              },
+            }}
+            fw="bold"
+            color="black"
+          >
+            Master Your Money: Empower Your{" "}
+            <span style={{ color: "green" }}>
+              {/* <Text color="green" my="-15px"> */}
+              {/* {" "} */}
+              Finances {/* </Text> */}
+            </span>
+          </Text>
+          <Text
+            opacity={0.8}
+            fz="md"
+            sx={{
+              "@media (max-width: 40em)": {
+                fontSize: "0.9em",
+              },
             }}
           >
-            <Text fz="4em" color="white">
-              Personal{" "}
-              <span style={{ color: "green" }}>
-                {/* <Text color="green" my="-15px"> */}
-                {/* {" "} */}
-                Finance {/* </Text> */}
-              </span>
-              Management
-            </Text>
-          </Flex>
-          <Avatar
-            // width={"80vh"}
-            size="lg"
-            w={"60vh"}
-            h="60vh"
-            sx={{ borderRadius: "100%" }}
-            src="/happy-tiny-people-growing-money-tree-isolated-flat-illustration_74855-16162.avif"
-          ></Avatar>
-        </Center>
-      </BackgroundImage>
+            Unlock financial freedom with our intuitive personal finance
+            software designed to optimize your wealth and achieve your goals.
+          </Text>
+          <Button
+            onClick={() => setOpenModal(true)}
+            w="max-content"
+            color="green"
+          >
+            Register
+          </Button>
+        </Flex>
+        <Avatar
+          // width={"80vh"}
+          size="lg"
+          w={"60vh"}
+          h="60vh"
+          sx={{
+            borderRadius: "100%",
+            "@media (max-width: 40em)": {
+              width: "40vh",
+              height: "40vh",
+            },
+          }}
+          src="/spreadsheet-computer-flat-icon-financial-accounting-report-concept-vector-illustration-png_282588.PNG"
+        ></Avatar>
+      </Center>
     </>
   );
 }

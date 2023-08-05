@@ -103,7 +103,18 @@ const Page = () => {
             }}
           />
         </AspectRatio>
-        <Flex align={"start"} gap="lg" mt="lg">
+        <Flex
+          align={"start"}
+          gap="lg"
+          mt="lg"
+          sx={{
+            "@media (max-width: 980px)": {
+              width: "100%",
+              flexDirection: "column",
+              marginTop: "-100px",
+            },
+          }}
+        >
           <StockInvestmentsTable investments={investments} />
           <AspectRatio
             ratio={16 / 9}

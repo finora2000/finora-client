@@ -12,8 +12,28 @@ const Page = () => {
     <DefaultContainer>
       <>
         <AddDeposit opened={opened} close={close} />
-        <Flex align="center" w="100%" justify="space-between" p="10px">
-          <Text fz="1.8em" fw="bold">
+        <Flex
+          align="center"
+          w="100%"
+          justify="space-between"
+          p="10px"
+          sx={{
+            "@media (max-width: 980px)": {
+              alignItems: "center",
+              // gap: "30px",
+              padding: "5px",
+            },
+          }}
+        >
+          <Text
+            fz="1.8em"
+            fw="bold"
+            sx={{
+              "@media (max-width: 980px)": {
+                fontSize: "1.4em",
+              },
+            }}
+          >
             Your Past Deposits
           </Text>
           <Button

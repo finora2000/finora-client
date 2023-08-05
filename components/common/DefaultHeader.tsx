@@ -4,8 +4,13 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-const DefaultHeader = () => {
-  const [openModal, setOpenModal] = useState(false);
+const DefaultHeader = ({
+  openModal,
+  setOpenModal,
+}: {
+  openModal: boolean;
+  setOpenModal: (state: boolean) => void;
+}) => {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -16,7 +21,13 @@ const DefaultHeader = () => {
   const router = useRouter();
   return (
     <>
-      <Header fixed={true} height={60} p="xs">
+      <Header
+        sx={{ boxShadow: "0px 1px 6px rgba(0,0,0,0.1)" }}
+        fixed={true}
+        zIndex={0}
+        height={60}
+        p="xs"
+      >
         <Flex
           justify={"space-between"}
           w="100%"
@@ -40,7 +51,15 @@ const DefaultHeader = () => {
                 Go To Dashboard
               </Button>
             )}
-            <Button color="green" onClick={() => setOpenModal(true)}>
+            <Button
+              color="green"
+              sx={{
+                "@media (max-width: 40em)": {
+                  display: userIsLoggedIn ? "none" : "block",
+                },
+              }}
+              onClick={() => setOpenModal(true)}
+            >
               Get Started
             </Button>
           </Flex>
