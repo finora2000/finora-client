@@ -9,18 +9,14 @@ const DefaultHeader = () => {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const localState = localStorage.getItem("applicationState") as any;
+    const localState = localStorage.getItem("token") as any;
     if (!localState) return;
-    const User = JSON.parse(localState);
-    if (User.User._id) {
-      setUserIsLoggedIn(true);
-    }
+    setUserIsLoggedIn(true);
   }, []);
   const router = useRouter();
   return (
     <>
-      <SignUpModal isOpen={openModal} setIsOpen={() => setOpenModal(false)} />
-      <Header height={60} p="xs">
+      <Header fixed={true} height={60} p="xs">
         <Flex
           justify={"space-between"}
           w="100%"
@@ -45,11 +41,12 @@ const DefaultHeader = () => {
               </Button>
             )}
             <Button color="green" onClick={() => setOpenModal(true)}>
-              Register
+              Get Started
             </Button>
           </Flex>
         </Flex>
       </Header>
+      <SignUpModal isOpen={openModal} setIsOpen={() => setOpenModal(false)} />
     </>
   );
 };

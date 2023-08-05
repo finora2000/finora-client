@@ -34,7 +34,7 @@ const StockInvestmentsTable = ({
                     <Text>{a.tickerName}</Text>
                   </Flex>
                 </td>
-                <td>{a.totalInterestGained}%</td>
+                <td>{a.totalInterestGained.toFixed(2)}%</td>
                 <td>{a.allocation}%</td>
               </tr>
             ))}

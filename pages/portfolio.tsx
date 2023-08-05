@@ -32,7 +32,30 @@ const Portfolio = () => {
     0
   );
 
+  const news = useSelector((state: AppState) => state.User.news);
+
   const userInfo = useSelector((state: AppState) => state.User.userInfo);
+  function getTimePassed(oldDate: string): string {
+    const oldDateObj = new Date(oldDate);
+    const currentDateObj = new Date();
+
+    const timeDiffMs = currentDateObj.getTime() - oldDateObj.getTime();
+
+    const seconds = Math.floor(timeDiffMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return days === 1 ? `${days} day ago` : `${days} days ago`;
+    } else if (hours > 0) {
+      return hours === 1 ? `${hours} hour ago` : `${hours} hours ago`;
+    } else if (minutes > 0) {
+      return minutes === 1 ? `${minutes} minute ago` : `${minutes} minutes ago`;
+    } else {
+      return seconds === 1 ? `${seconds} second ago` : `${seconds} seconds ago`;
+    }
+  }
 
   return (
     <DefaultContainer>
@@ -103,22 +126,23 @@ const Portfolio = () => {
             <Text fw="bold" mb="lg" fz="lg">
               Latest News
             </Text>
-            {[1, 1, 2].map(() => (
+            {news.map((n) => (
               <>
                 <Divider my="md" orientation="horizontal" />
                 <Flex align={"center"} gap={"md"}>
-                  <Image
+                  {/* <Image
                     src="https://media.istockphoto.com/id/1369150014/vector/breaking-news-with-world-map-background-vector.jpg?s=612x612&w=0&k=20&c=9pR2-nDBhb7cOvvZU_VdgkMmPJXrBQ4rB1AkTXxRIKM="
                     style={{ maxWidth: "150px" }}
-                  />
+                  /> */}
                   <Box>
-                    <Text fz="lg">News Headlines</Text>
+                    <Text fz="md" fw="bold">
+                      {n.title}
+                    </Text>
                     <Text fz={"sm"} my="2px">
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Consequatur quaerat quae expedita ipsam nisi...
+                      {n.source}
                     </Text>
                     <Text fz="xs" opacity={0.7}>
-                      4 mins ago
+                      {getTimePassed(n.pubDate as any)}
                     </Text>
                   </Box>
                 </Flex>

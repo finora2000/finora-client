@@ -37,6 +37,7 @@ export default function DefaultContainer({
         const response = await new AxiosRequest("/dashboard").get();
         console.log("response.data", response.data);
         if (response.data) {
+          dispatch(userAction.setNews(response.data.news));
           dispatch(
             portfolioAction.setUserPortfolio({
               deposits: response.data.deposits,
